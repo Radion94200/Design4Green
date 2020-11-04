@@ -1,9 +1,8 @@
-FROM quoinedev/python3.6-pandas-alpine:latest
+FROM python:latest
 
 WORKDIR /usr/src/app
 
 COPY requirements.txt ./
-RUN apk add make automake gcc g++ subversion python3-dev
 RUN pip install --no-cache-dir -r requirements.txt
 
 COPY . .
