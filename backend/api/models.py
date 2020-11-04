@@ -19,9 +19,17 @@ class Commune(models.Model):
             .filter(commune__nom=self.nom)\
             .values(
                 "id",
+                "score",
+                "score_acces",
+                "score_comp",
                 "score_global_dep",
                 "score_global_region",
                 "population",
+                "acces_num",
+                "acces_info",
+                "comp_admin",
+                "comp_num",
+                "code_iris",
                 "latitude",
                 "longitude"
             )
@@ -30,17 +38,18 @@ class Commune(models.Model):
 class Quartier(models.Model):
     commune = models.ForeignKey(Commune, on_delete=models.CASCADE)
     # Score par rapport Region / Departement
-    score_global_dep = models.IntegerField()
-    score_global_region = models.IntegerField()
-    #score = models.IntegerField()
+    score_global_dep = models.IntegerField(default=-1)
+    score_global_region = models.IntegerField(default=-1)
+    score = models.IntegerField(default=-1)
     # Indicateurs
-    population = models.IntegerField()
-    #acces_num = models.IntegerField()
-    #acces_info = models.IntegerField()
-    #comp_admin = models.IntegerField()
-    #comp_num = models.IntegerField()
-    #score_acces = models.IntegerField()
-    #score_comp = models.IntegerField()
+    population = models.IntegerField(default=-1)
+    code_iris = models.CharField(max_length=255, default="")
+    acces_num = models.IntegerField(default=-1)
+    acces_info = models.IntegerField(default=-1)
+    comp_admin = models.IntegerField(default=-1)
+    comp_num = models.IntegerField(default=-1)
+    score_acces = models.IntegerField(default=-1)
+    score_comp = models.IntegerField(default=-1)
     # Geographie
-    latitude = models.FloatField()
-    longitude = models.FloatField()
+    latitude = models.FloatField(default=0)
+    longitude = models.FloatField(default=0)
