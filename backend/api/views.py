@@ -27,14 +27,12 @@ class QuartierViewSet(viewsets.ModelViewSet):
 
 
 class GenerateDBView(views.APIView):
-    #def get(self, request):
-    def test(self):
-        #df_communes = pd.read_csv(f"../input_bdd/infos-communes.csv", sep='\t',
-        #                          encoding="utf-16")
+    def get(self, request):
+        df_communes = pd.read_csv(f"../input_bdd/infos-communes.csv", sep='\t',
+                                  encoding="utf-16")
         df_regions = pd.read_csv(f"../input_bdd/infos-regions.csv", sep='\t',
                                  encoding="utf-16")
-        #df_regions = df_regions.sort_values("Libcom")
-        #df_communes = df_communes.sort_values("Nom Com")
+
         for _, row in df_regions.iterrows():
             reg_query = Region.objects.filter(nom=row["Libreg"])
             if reg_query.exists():
@@ -61,39 +59,44 @@ class GenerateDBView(views.APIView):
             else:
                 com = Commune(
                     nom=row["Libcom"],
-                    department=dep
+                    departement=dep
                 )
                 com.save()
 
             Q = Quartier(
                 commune=com,
-                score_global_dep=int(float(row["SCORE GLOBAL departement 1"].replace(',', '.'))),
-                score_global_region=int(float(row["SCORE GLOBAL region 1"].replace(',', '.'))),
+                score_global_dep=int(float(row["SCORE GLOBAL departement 1"]
+                                           .replace(',', '.'))),
+                score_global_region=int(float(row["SCORE GLOBAL region 1"]
+                                              .replace(',', '.'))),
                 population=int(float(row["P16 Pop"].replace(',', '.'))),
                 latitude=float(row["Latitude (générée)"].replace(',', '.')),
                 longitude=float(row["Longitude (générée)"].replace(',', '.'))
             )
             Q.save()
 
-        return Response({})
-
-
-    def get(self, request):
-        df_communes = pd.read_csv(f"../input_bdd/infos-communes.csv", sep='\t',
-                                  encoding="utf-16")
         for _, row in df_communes.iterrows():
-            print(row)
-            print("type = ", type(row["Population"]))
-            q_query = Quartier.objects.filter(population=int(row["Population"].replace("\xa0","")),
-                                              commune__nom=row["Nom Com"], code_iris=0)
+            q_query = Quartier.objects.filter(
+                population=int(row["Population"].replace("\xa0", "")),
+                commune__nom=row["Nom Com"], code_iris=""
+            )
             if q_query.exists():
                 if len(q_query.values()) >= 1:
                     Q = q_query.all()[0]
                 else:
                     Q = q_query.get()
                 Q.code_iris = row["Code Iris"]
+                Q.score = int(row["SCORE GLOBAL "])
+                Q.acces_num = int(row["ACCÈS AUX INTERFACES NUMERIQUES"])
+                Q.acces_info = int(row["ACCES A L'INFORMATION"])
+                Q.comp_admin = int(row["COMPETENCES ADMINISTATIVES"])
+                Q.comp_num = int(row["COMPÉTENCES NUMÉRIQUES / SCOLAIRES"])
+                Q.score_acces = int(row["GLOBAL ACCES"])
+                Q.score_comp = int(row["GLOBAL COMPETENCES"])
                 Q.save()
-            else:
-                f = open('untrusted.txt', 'a')
-                for i in range(len(row)):
-                    f.write(str(row[i]))
+
+            for Q in Quartier.objects.all():
+                if Q.acces_info == -1:
+                    Q.delete()
+
+        return Response({})
