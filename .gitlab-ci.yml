@@ -11,6 +11,7 @@ test:
   stage: test
   image: python:3-alpine
   script:
+    - apk add make automake gcc g++ subversion python3-dev
     - pip install -r backend/requirements.txt
     - python backend/manage.py test
 
