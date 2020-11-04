@@ -10,6 +10,7 @@ test:
   stage: test
   image: python:3-alpine
   script:
+    - pip install -r backend/requirements.txt
     - python backend/manage.py test
 
 build:
