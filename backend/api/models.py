@@ -12,7 +12,19 @@ class Departement(models.Model):
 
 class Commune(models.Model):
     nom = models.CharField(max_length=255)
-    department = models.ForeignKey(Departement, on_delete=models.CASCADE)
+    departement = models.ForeignKey(Departement, on_delete=models.CASCADE)
+
+    def quartiers(self):
+        return Quartier.objects\
+            .filter(commune__nom=self.nom)\
+            .values(
+                "id",
+                "score_global_dep",
+                "score_global_region",
+                "population",
+                "latitude",
+                "longitude"
+            )
 
 
 class Quartier(models.Model):
