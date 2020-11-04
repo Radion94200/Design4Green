@@ -1,4 +1,3 @@
-image: docker:stable
 stages:
   - test
   - build
@@ -9,10 +8,12 @@ services:
 
 test:
   stage: test
+  image: python:3-alpine
   script:
     - python backend/manage.py test
 
 build:
+  image: docker:stable
   only:
     refs:
       - master
@@ -25,6 +26,7 @@ build:
     - docker push $IMAGE_NAME
 
 deploy:
+  image: alpine:latest
   only:
     - tags
   stage: deploy
