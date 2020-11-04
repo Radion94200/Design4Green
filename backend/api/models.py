@@ -19,9 +19,17 @@ class Commune(models.Model):
             .filter(commune__nom=self.nom)\
             .values(
                 "id",
+                "score",
+                "score_acces",
+                "score_comp",
                 "score_global_dep",
                 "score_global_region",
                 "population",
+                "acces_num",
+                "acces_info",
+                "comp_admin",
+                "comp_num",
+                "code_iris",
                 "latitude",
                 "longitude"
             )
