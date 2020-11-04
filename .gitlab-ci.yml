@@ -9,7 +9,7 @@ services:
 
 test:
   stage: test
-  image: python:3-alpine
+  image: quoinedev/python3.6-pandas-alpine:latest
   script:
     - apk add make automake gcc g++ subversion python3-dev
     - pip install -r backend/requirements.txt

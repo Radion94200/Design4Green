@@ -1,4 +1,4 @@
-FROM python:3-alpine
+FROM quoinedev/python3.6-pandas-alpine:latest
 
 WORKDIR /usr/src/app
 
