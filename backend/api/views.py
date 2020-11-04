@@ -27,7 +27,8 @@ class QuartierViewSet(viewsets.ModelViewSet):
 
 
 class GenerateDBView(views.APIView):
-    def get(self, request):
+    #def get(self, request):
+    def test(self):
         #df_communes = pd.read_csv(f"../input_bdd/infos-communes.csv", sep='\t',
         #                          encoding="utf-16")
         df_regions = pd.read_csv(f"../input_bdd/infos-regions.csv", sep='\t',
@@ -75,3 +76,24 @@ class GenerateDBView(views.APIView):
             Q.save()
 
         return Response({})
+
+
+    def get(self, request):
+        df_communes = pd.read_csv(f"../input_bdd/infos-communes.csv", sep='\t',
+                                  encoding="utf-16")
+        for _, row in df_communes.iterrows():
+            print(row)
+            print("type = ", type(row["Population"]))
+            q_query = Quartier.objects.filter(population=int(row["Population"].replace("\xa0","")),
+                                              commune__nom=row["Nom Com"], code_iris=0)
+            if q_query.exists():
+                if len(q_query.values()) >= 1:
+                    Q = q_query.all()[0]
+                else:
+                    Q = q_query.get()
+                Q.code_iris = row["Code Iris"]
+                Q.save()
+            else:
+                f = open('untrusted.txt', 'a')
+                for i in range(len(row)):
+                    f.write(str(row[i]))

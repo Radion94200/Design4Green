@@ -35,6 +35,7 @@ class Quartier(models.Model):
     #score = models.IntegerField()
     # Indicateurs
     population = models.IntegerField()
+    code_iris = models.CharField(max_length=255)
     #acces_num = models.IntegerField()
     #acces_info = models.IntegerField()
     #comp_admin = models.IntegerField()
