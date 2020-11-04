@@ -43,7 +43,7 @@ build:
     - docker info
     - echo "registering with $REGISTRY_USERNAME $REGISTRY_PASSWORD"
     - echo $REGISTRY_PASSWORD | docker login -u $REGISTRY_USERNAME --password-stdin registry.gitlab.com
-    - docker build -t $BACK_IMAGE_NAME ./backend
+    - docker build --build-arg SECRET_KEY=$SECRET_KEY -t $BACK_IMAGE_NAME ./backend
     - docker push $BACK_IMAGE_NAME
     - docker build -t $FRONT_IMAGE_NAME ./frontend
     - docker push $FRONT_IMAGE_NAME
