@@ -18,6 +18,7 @@ class DepartementViewSet(viewsets.ModelViewSet):
 class CommuneViewSet(viewsets.ModelViewSet):
     queryset = Commune.objects.all()
     serializer_class = CommuneSerializer
+    filter_fields = ["nom"]
 
 
 class QuartierViewSet(viewsets.ModelViewSet):
