@@ -2,7 +2,7 @@
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <a class="navbar-brand" href="#">
             <router-link class="nav-link" to="/">
-                <img id="navbar-logo" src="../assets/tree_standalone.png">
+                <img id="navbar-logo" src="../assets/tree_standalone.png" alt="logo">
                 Design4Green
             </router-link>
         </a>
