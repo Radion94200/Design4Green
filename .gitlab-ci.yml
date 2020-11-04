@@ -43,8 +43,10 @@ build:
     - docker info
     - echo "registering with $REGISTRY_USERNAME $REGISTRY_PASSWORD"
     - echo $REGISTRY_PASSWORD | docker login -u $REGISTRY_USERNAME --password-stdin registry.gitlab.com
-    - docker build -t $IMAGE_NAME .
-    - docker push $IMAGE_NAME
+    - docker build -t $BACK_IMAGE_NAME ./backend
+    - docker push $BACK_IMAGE_NAME
+    - docker build -t $FRONT_IMAGE_NAME ./frontend
+    - docker push $FRONT_IMAGE_NAME
 
 deploy:
   image: alpine:latest
@@ -54,11 +56,17 @@ deploy:
   script:
     - apk add --update curl wget
     - wget https://git.dadard.fr/dadard/scripts/raw/branch/master/deploy.sh
-    - export CONTAINER_NAME
-    - export IMAGE_NAME
     - export POD_NAME
     - export DEPLOYER_URL
     - export DEPLOYER_TOKEN
+    - echo "== DEPLOYING BACKEND =="
+    - export CONTAINER_NAME=$BACK_CONTAINER_NAME
+    - export IMAGE_NAME=$BACK_IMAGE_NAME
+    - echo "deploying container $CONTAINER_NAME ($IMAGE_NAME) with API $DEPLOYER_URL in pod $POD_NAME"
+    - sh deploy.sh
+    - echo "== DEPLOYING FRONTEND =="
+    - export CONTAINER_NAME=$BACK_CONTAINER_NAME
+    - export IMAGE_NAME=$BACK_IMAGE_NAME
     - echo "deploying container $CONTAINER_NAME ($IMAGE_NAME) with API $DEPLOYER_URL in pod $POD_NAME"
     - sh deploy.sh
 
