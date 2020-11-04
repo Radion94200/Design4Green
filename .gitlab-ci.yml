@@ -65,8 +65,8 @@ deploy:
     - echo "deploying container $CONTAINER_NAME ($IMAGE_NAME) with API $DEPLOYER_URL in pod $POD_NAME"
     - sh deploy.sh
     - echo "== DEPLOYING FRONTEND =="
-    - export CONTAINER_NAME=$BACK_CONTAINER_NAME
-    - export IMAGE_NAME=$BACK_IMAGE_NAME
+    - export CONTAINER_NAME=$FRONT_CONTAINER_NAME
+    - export IMAGE_NAME=$FRONT_IMAGE_NAME
     - echo "deploying container $CONTAINER_NAME ($IMAGE_NAME) with API $DEPLOYER_URL in pod $POD_NAME"
     - sh deploy.sh
 
