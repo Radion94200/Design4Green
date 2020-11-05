@@ -7,13 +7,6 @@ stages:
 services:
   - docker:dind
 
-test:
-  stage: test
-  image: python:latest
-  script:
-    - pip install -r backend/requirements.txt
-    - python backend/manage.py test
-
 sonarqube-check:
   image:
     name: sonarsource/sonar-scanner-cli:latest
