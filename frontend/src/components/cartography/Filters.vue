@@ -3,29 +3,54 @@
         <div id="filters-content">
             <span class="panel-title">Filters</span>
             <div class="row">
-                <div class="custom-control custom-checkbox input-group-menu">
-                    <input type="checkbox" class="custom-control-input" id="is-dom-tom-input">
-                    <label class="custom-control-label" for="is-dom-tom-input">In DOM-TOM</label>
-                </div>
+<!--                <div class="custom-control custom-checkbox input-group-menu">-->
+<!--                    <input type="checkbox" class="custom-control-input" id="is-dom-tom-input">-->
+<!--                    <label class="custom-control-label" for="is-dom-tom-input">In DOM-TOM</label>-->
+<!--                </div>-->
 
                 <div class="input-group-menu">
+                    <label for="view-select">Choose a zoom level</label>
+                    <select v-model="view" id="view-select" class="custom-select">
+                        <option :value="views.filterRegion" selected>Region</option>
+                        <option :value="views.filterDeps">Department</option>
+                        <option :value="views.filterCities">City</option>
+                    </select>
+                </div>
+
+                <div class="input-group-menu" v-if="view === views.filterRegion">
                     <label for="region-input">Region</label>
-                    <input type="text" class="form-control" id="region-input">
+                    <input v-model="regionInput" type="text" class="form-control" id="region-input">
+                    <div class="search-results">
+                        <div class="search-result" v-for="r of regionSearch" :key="r.id">
+                            <span @click="setRegionInput(r.nom)">
+                                {{r.nom}}
+                            </span>
+                        </div>
+                    </div>
                 </div>
 
-                <div class="input-group-menu">
+                <div class="input-group-menu" v-if="view === views.filterDeps">
                     <label for="dep-input">Department</label>
-                    <input type="text" class="form-control" id="dep-input">
+                    <input v-model="depInput" type="text" class="form-control" id="dep-input">
+                    <div class="search-results">
+                        <div class="search-result" v-for="d of depSearch" :key="d.id">
+                            <span @click="setDepInput(d.nom)">
+                                {{d.nom}}
+                            </span>
+                        </div>
+                    </div>
                 </div>
 
-                <div class="input-group-menu">
+                <div class="input-group-menu" v-if="view === views.filterCities">
                     <label for="city-input">City</label>
-                    <input type="text" class="form-control" id="city-input">
-                </div>
-
-                <div class="input-group-menu">
-                    <label for="neigh-input">Neighbourhood</label>
-                    <input type="text" class="form-control" id="neigh-input">
+                    <input @change="searchCity" v-model="cityInput" type="text" class="form-control" id="city-input">
+                    <div class="search-results">
+                        <div class="search-result" v-for="c of cityResults.slice(0, 5)" :key="c.id">
+                            <span @click="setCityInput(c.nom)">
+                                {{c.nom}}
+                            </span>
+                        </div>
+                    </div>
                 </div>
 
                 <div class="input-group-menu">
@@ -46,8 +71,23 @@
                 // service
                 service: null,
 
+                // input
+                regionInput: "",
+                depInput: "",
+                cityInput: "",
+
                 // data
                 regionList: [],
+                depList: [],
+                cityResults: [],
+
+                // dom
+                views: {
+                    filterRegion: 'filterRegion',
+                    filterDeps: 'filterDeps',
+                    filterCities: 'filterCities'
+                },
+                view: 'filterRegion'
             };
         },
         mounted() {
@@ -55,6 +95,60 @@
 
             // DEBUG ONLY fixme
             this.listRegions();
+            this.listDep();
+        },
+        computed: {
+            regionSearch: function() {
+                let self = this;
+                if (self.regionInput === "") {
+                    return []
+                } else {
+                    let dl = [];
+                    for (let i = 0; i < this.regionList.length; i++) {
+                        let r = this.regionList[i];
+                        if (r.nom === self.regionInput) {
+                            return []
+                        }
+
+                        let re = new RegExp(self.regionInput.toUpperCase());
+                        if (r.nom.match(re)) {
+                            dl.push(r)
+                        }
+
+                        if (dl.length === 5) {
+                            return dl;
+                        }
+                    }
+
+                    return dl;
+                }
+            },
+            depSearch: function() {
+                let self = this;
+                if (self.depInput === "") {
+                    return []
+                } else {
+                    let dl = [];
+                    for (let i = 0; i < this.depList.length; i++) {
+                        let d = this.depList[i];
+                        if (d.nom === self.depInput) {
+                            return []
+                        }
+
+                        let re = new RegExp(self.depInput.toUpperCase());
+                        if (d.nom.match(re)) {
+                            dl.push(d)
+                        }
+
+                        if (dl.length === 5) {
+                            return dl;
+                        }
+                    }
+
+                    return dl;
+                }
+
+            }
         },
         methods: {
             submit() {
@@ -68,6 +162,40 @@
                     .then(function(r) {
                         self.regionList = r;
                     });
+            },
+
+            listDep() {
+                let self = this;
+                this.service.listDepartments()
+                    .then(function(d) {
+                        self.depList = d;
+                    })
+            },
+
+            searchCity() {
+                let self = this;
+
+                if (self.cityInput === "") {
+                    self.cityResults = [];
+                    return
+                }
+                this.service.searchCity(self.cityInput)
+                    .then(function(rl) {
+                        self.cityResults = rl;
+                    })
+            },
+
+            setRegionInput(reg) {
+                this.regionInput = reg;
+            },
+
+            setDepInput(dep) {
+                this.depInput = dep;
+            },
+
+            setCityInput(city) {
+                this.cityInput = city;
+                this.cityResults = [];
             }
         }
 
@@ -76,16 +204,36 @@
 
 <style scoped>
     #filters {
-
+        width: 100%;
     }
 
     #filters-content {
+        margin: 10px;
         padding: 20px;
         display: grid;
         align-items: center;
 
         border-radius: 10px;
         border: solid 5px black;
+        background-color: lightgrey;
+    }
+
+    .search-results {
+        width: 80%;
+        position: absolute;
+        text-align: center;
+    }
+
+    .search-result {
+        border-bottom: solid 1px black;
+        border-left: solid 3px black;
+        border-right: solid 3px black;
+        background-color: white;
+
+        cursor: pointer;
+    }
+
+    .search-result:hover {
         background-color: lightgrey;
     }
 

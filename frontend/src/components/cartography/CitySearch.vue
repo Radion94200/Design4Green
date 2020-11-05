@@ -35,10 +35,11 @@
 <style scoped>
 
     #city-search {
-        width: 90%;
+        width: 100%;
     }
 
     #search-content {
+        margin: 10px;
         padding: 20px;
         border: solid 5px black;
         border-radius: 10px;
