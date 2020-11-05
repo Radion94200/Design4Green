@@ -17,11 +17,11 @@
 
 <style scoped>
     #map {
-        width: 90%;
-        margin-top: 15px;
+        width: 100%;
     }
 
     #map-content {
+        margin: 10px;
         padding: 20px;
         border: solid 5px black;
         border-radius: 10px;
