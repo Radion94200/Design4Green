@@ -18,19 +18,19 @@ export default class ApiService {
         }
     }
 
-    listRegions() {
+    listPaging(route, ) {
         let self = this;
-        let regionList = [];
-        let regionCount = -1;
+        let l = [];
+        let c = -1;
         let pageIndex = 1;
 
         return (async function loop() {
-            while (regionList.length !== regionCount) {
-                await self.service.get(`${self.baseUrl}${self.routes.regions}?page=${pageIndex}`)
+            while (l.length !== c) {
+                await self.service.get(`${self.baseUrl}${route}?page=${pageIndex}`)
                     .then(function(response) {
-                        regionCount = response.data.count;
+                        c = response.data.count;
                         response.data.results.forEach(function(e) {
-                            regionList.push(e)
+                            l.push(e)
                         });
 
                         pageIndex += 1;
@@ -38,32 +38,26 @@ export default class ApiService {
             }
         })().then(function() {
             console.log('done');
-            return regionList
+            return l
         });
     }
 
+    listRegions() {
+        return this.listPaging(this.routes.regions)
+    }
+
     listDepartments() {
-        let self = this;
-        let depList = [];
-        let depCount = -1;
-        let pageIndex = 1;
+        return this.listPaging(this.routes.departments)
+    }
 
-        return (async function loop() {
-            while (depList.length !== depCount) {
-                await self.service.get(`${self.baseUrl}${self.routes.departments}?page=${pageIndex}`)
-                    .then(function(response) {
-                        depCount = response.data.count;
-                        response.data.results.forEach(function(e) {
-                            depList.push(e)
-                        });
-
-                        pageIndex += 1;
-                    });
+    searchCity(query) {
+        return this.service.get(`${this.baseUrl}${this.routes.cities}`, {
+            params: {
+                search: query
             }
-        })().then(function() {
-            console.log('done');
-            return depList
-        });
+        }).then(function(res) {
+            return res.data.results
+        })
     }
 
     getGeojson(commune) {

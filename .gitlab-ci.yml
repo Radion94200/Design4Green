@@ -7,13 +7,6 @@ stages:
 services:
   - docker:dind
 
-test:
-  stage: test
-  image: python:latest
-  script:
-    - pip install -r backend/requirements.txt
-    - python backend/manage.py test
-
 sonarqube-check:
   image:
     name: sonarsource/sonar-scanner-cli:latest
@@ -21,6 +14,7 @@ sonarqube-check:
   only:
     refs:
       - master
+      - refacto
   stage: sonarqube-check
   variables:
     SONAR_USER_HOME: "${CI_PROJECT_DIR}/.sonar"  # Defines the location of the analysis task cache

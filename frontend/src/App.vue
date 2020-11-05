@@ -25,7 +25,7 @@
 
 import Navbar from "@/components/Navbar";
 import Presentation from "@/components/Presentation";
-import About from "@/assets/About";
+import About from "@/components/About";
 import Cartographie from "@/components/cartography/Cartography";
 
 export default {
