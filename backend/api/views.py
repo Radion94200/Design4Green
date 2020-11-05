@@ -1,7 +1,11 @@
 from rest_framework import viewsets, views, filters
 from rest_framework.response import Response
 
-from api.serializers import *
+from api.serializers import RegionSerializer
+from api.serializers import DepartementSerializer
+from api.serializers import CommuneSerializer
+from api.serializers import QuartierSerializer
+
 import pandas as pd
 
 
