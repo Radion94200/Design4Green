@@ -1,8 +1,10 @@
 from rest_framework import serializers
-try:
-    from api.models import *
-except Exception:
-    from api.models import *
+#from api.models import *
+
+from api.models import Region
+from api.models import Departement
+from api.models import Commune
+from api.models import Quartier
 
 
 class RegionSerializer(serializers.ModelSerializer):

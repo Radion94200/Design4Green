@@ -1,10 +1,7 @@
 from rest_framework import viewsets, views, filters
 from rest_framework.response import Response
 
-try:
-    from api.serializers import *
-except Exception:
-    from api.serializers import *
+from api.serializers import *
 import pandas as pd
 
 
