@@ -41,7 +41,7 @@
         },
         data() {
             return {
-                url: "http://vps-2ea52359.vps.ovh.net:8080"
+                url: "http://vps-2ea52359.vps.ovh.net:8000"
             }
         }
     }
