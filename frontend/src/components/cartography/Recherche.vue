@@ -1,61 +1,56 @@
 <template>
-    <div id="filters">
-        <div id="filters-content">
-            <span class="panel-title">Filters</span>
-            <div class="row">
-<!--                <div class="custom-control custom-checkbox input-group-menu">-->
-<!--                    <input type="checkbox" class="custom-control-input" id="is-dom-tom-input">-->
-<!--                    <label class="custom-control-label" for="is-dom-tom-input">In DOM-TOM</label>-->
-<!--                </div>-->
+    <div class="card">
+        <div class="card-header">
+            <h3>Recherche</h3>
+        </div>
+        <div class="card-body">
+            <div class="input-group-menu">
+                <label for="view-select">Choisissez votre échelle</label>
+                <select v-model="view" id="view-select" class="custom-select" disabled>
+                    <option :value="views.filterRegion" selected>Région</option>
+                    <option :value="views.filterDeps">Département</option>
+                    <option :value="views.filterCities">Commune</option>
+                </select>
+            </div>
 
-                <div class="input-group-menu">
-                    <label for="view-select">Choose a zoom level</label>
-                    <select v-model="view" id="view-select" class="custom-select">
-                        <option :value="views.filterRegion" selected>Region</option>
-                        <option :value="views.filterDeps">Department</option>
-                        <option :value="views.filterCities">City</option>
-                    </select>
-                </div>
-
-                <div class="input-group-menu" v-if="view === views.filterRegion">
-                    <label for="region-input">Region</label>
-                    <input v-model="regionInput" type="text" class="form-control" id="region-input">
-                    <div class="search-results">
-                        <div class="search-result" v-for="r of regionSearch" :key="r.id">
+            <div class="input-group-menu" v-if="view === views.filterRegion">
+                <label for="region-input">Région</label>
+                <input v-model="regionInput" type="text" class="form-control" id="region-input">
+                <div class="search-results">
+                    <div class="search-result" v-for="r of regionSearch" :key="r.id">
                             <span @click="setRegionInput(r.nom)">
                                 {{r.nom}}
                             </span>
-                        </div>
                     </div>
                 </div>
+            </div>
 
-                <div class="input-group-menu" v-if="view === views.filterDeps">
-                    <label for="dep-input">Department</label>
-                    <input v-model="depInput" type="text" class="form-control" id="dep-input">
-                    <div class="search-results">
-                        <div class="search-result" v-for="d of depSearch" :key="d.id">
+            <div class="input-group-menu" v-if="view === views.filterDeps">
+                <label for="dep-input">Départment</label>
+                <input v-model="depInput" type="text" class="form-control" id="dep-input">
+                <div class="search-results">
+                    <div class="search-result" v-for="d of depSearch" :key="d.id">
                             <span @click="setDepInput(d.nom)">
                                 {{d.nom}}
                             </span>
-                        </div>
                     </div>
                 </div>
+            </div>
 
-                <div class="input-group-menu" v-if="view === views.filterCities">
-                    <label for="city-input">City</label>
-                    <input @change="searchCity" v-model="cityInput" type="text" class="form-control" id="city-input">
-                    <div class="search-results">
-                        <div class="search-result" v-for="c of cityResults.slice(0, 5)" :key="c.id">
+            <div class="input-group-menu" v-if="view === views.filterCities">
+                <label for="city-input">Commune</label>
+                <input @change="searchCity" v-model="cityInput" type="text" class="form-control" id="city-input">
+                <div class="search-results">
+                    <div class="search-result" v-for="c of cityResults.slice(0, 5)" :key="c.id">
                             <span @click="setCityInput(c.nom)">
                                 {{c.nom}}
                             </span>
-                        </div>
                     </div>
                 </div>
+            </div>
 
-                <div class="input-group-menu">
-                    <button class="btn btn-primary" style="width: 100%" @click="submit">Submit</button>
-                </div>
+            <div class="input-group-menu">
+                <button class="btn btn-primary" style="width: 100%" @click="submit">Submit</button>
             </div>
         </div>
     </div>
@@ -87,7 +82,7 @@
                     filterDeps: 'filterDeps',
                     filterCities: 'filterCities'
                 },
-                view: 'filterRegion'
+                view: 'filterCities'
             };
         },
         mounted() {
@@ -203,21 +198,6 @@
 </script>
 
 <style scoped>
-    #filters {
-        width: 100%;
-    }
-
-    #filters-content {
-        margin: 10px;
-        padding: 20px;
-        display: grid;
-        align-items: center;
-
-        border-radius: 10px;
-        border: solid 5px black;
-        background-color: lightgrey;
-    }
-
     .search-results {
         width: 80%;
         position: absolute;

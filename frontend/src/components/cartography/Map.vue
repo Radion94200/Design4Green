@@ -1,8 +1,11 @@
 <template>
-    <div id="map">
-        <div id="map-content">
-            <span class="panel-title">Carte</span>
-            <div class="row">
+    <div class="card">
+        <div class="card-header">
+            <h3>Carte</h3>
+        </div>
+        <div id="map" class="card-body">
+            <div class="container">
+            <p>Veuillez sélectionner votre commune pour afficher les informations sur la carte.</p>
                 <l-map
                         :zoom="zoom"
                         :center="center"
@@ -40,10 +43,10 @@
                 show: true,
                 service: null,
                 enableTooltip: true,
+                commune: null,
                 zoom: 6,
                 center: [48, -1.219482],
                 geojson: null,
-                fillColor: "#e4ce7f",
                 url: 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
                 attribution:
                     '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors',
@@ -52,10 +55,18 @@
         methods: {
             goto (commune) {
               this.geojson = this.service.getGeojson(commune)
-          }
+            },
+            findQuartier (feature) {
+                for (let el of this.commune["quartiers"]) {
+                    if (feature["properties"]["code_iris"] === el["code_iris"]) {
+                        return el
+                    }
+                }
+            }
         },
         mounted() {
             this.service = new ApiService();
+            setTimeout(function() { window.dispatchEvent(new Event('resize')) }, 250);
         },
         computed: {
             options() {
@@ -64,11 +75,16 @@
                 };
             },
             styleFunction() {
-                const fillColor = this.fillColor;
-                return () => {
+                return (feature) => {
+                    const score = this.findQuartier(feature);
+                    let fillColor = "";
+                    if (score < 100)
+                        fillColor = "#d2d2d2";
+                    else
+                        fillColor = "#d01515"; // todo : add a map
                     return {
                         weight: 2,
-                        color: "#ECEFF1",
+                        color: "#131111",
                         opacity: 1,
                         fillColor: fillColor,
                         fillOpacity: 1
@@ -97,17 +113,6 @@
 <style scoped>
     #map {
         width: 100%;
-    }
-
-    #map-content {
-        margin: 10px;
-        padding: 20px;
-        border: solid 5px black;
-        border-radius: 10px;
-
         display: grid;
-        align-items: center;
-
-        background-color: lightgrey;
     }
 </style>
