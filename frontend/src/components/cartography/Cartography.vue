@@ -36,6 +36,6 @@
         font-family: monospace;
         text-align: center;
 
-        border-bottom: solid 3px darkgreen;
+        border-bottom: solid 3px black;
     }
 </style>

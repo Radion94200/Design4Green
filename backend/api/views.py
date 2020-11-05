@@ -1,4 +1,4 @@
-from rest_framework import viewsets, views
+from rest_framework import viewsets, views, filters
 from rest_framework.response import Response
 
 try:
@@ -21,7 +21,8 @@ class DepartementViewSet(viewsets.ModelViewSet):
 class CommuneViewSet(viewsets.ModelViewSet):
     queryset = Commune.objects.all()
     serializer_class = CommuneSerializer
-    filter_fields = ["nom"]
+    search_fields = ['^nom']
+    filter_backends = (filters.SearchFilter,)
 
 
 class QuartierViewSet(viewsets.ModelViewSet):
