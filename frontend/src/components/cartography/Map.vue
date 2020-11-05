@@ -23,12 +23,12 @@
 
     #map-content {
         padding: 20px;
-        border: solid 5px darkgreen;
+        border: solid 5px black;
         border-radius: 10px;
 
         display: grid;
         align-items: center;
 
-        background-color: lightgreen;
+        background-color: lightgrey;
     }
 </style>
