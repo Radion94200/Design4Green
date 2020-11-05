@@ -1,3 +1,5 @@
+import json
+
 from rest_framework import viewsets, views, filters
 from rest_framework.response import Response
 
@@ -100,4 +102,14 @@ class GenerateDBView(views.APIView):
                 if Q.acces_info == -1:
                     Q.delete()
 
+        with open('../input_bdd/contours-iris.geojson') as fd:
+            geojson_str = fd.read()
+        geojson = json.loads(geojson_str)
+        for q in geojson["features"]:
+            query = Quartier.objects.filter(
+                code_iris=q["properties"]["code_iris"],geojson="")
+            if query.exists():
+                Q = query.get()
+                Q.geojson = q
+                Q.save()
         return Response({})
