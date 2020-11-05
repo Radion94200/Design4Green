@@ -26,8 +26,16 @@
     }
 </script>
 
-<style scoped>
+<style>
     #cartography {
         margin-top: 10px
+    }
+
+    .panel-title {
+        font-size: 32px;
+        font-family: monospace;
+        text-align: center;
+
+        border-bottom: solid 3px darkgreen;
     }
 </style>

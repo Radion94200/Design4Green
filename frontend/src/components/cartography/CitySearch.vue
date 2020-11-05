@@ -1,15 +1,20 @@
 <template xmlns:width="http://www.w3.org/1999/xhtml">
     <div id="city-search">
-        <div id="search-form" class="form-group">
-            <div class="input-group mb-3">
-                <div class="input-group-prepend">
-                    <span class="input-group-text" id="search-prepend">
-                        <img src="../../assets/search.png" style="height: 22px" alt="search_logo">
-                    </span>
-                </div>
-                <input type="text" class="form-control" placeholder="Query..." aria-label="Username" aria-describedby="basic-addon1">
-                <div class="input-group-append">
-                    <button class="btn btn-primary" id="search-append">Search</button>
+        <div id="search-content">
+            <span class="panel-title">Search</span>
+            <div id="search-form">
+                <div class="form-group">
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text" id="search-prepend">
+                                <img src="../../assets/search.png" style="height: 22px" alt="search_logo">
+                            </span>
+                        </div>
+                        <input type="text" class="form-control" placeholder="Query..." aria-label="Query" aria-describedby="query">
+                        <div class="input-group-append">
+                            <button class="btn btn-primary" id="search-append">Search</button>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -33,11 +38,19 @@
         width: 90%;
     }
 
-    #search-form {
+    #search-content {
         padding: 20px;
         border: solid 5px darkgreen;
         border-radius: 10px;
 
+        display: grid;
+        align-items: center;
+
         background-color: lightgreen;
     }
+
+    #search-form {
+        margin-top: 10px;
+    }
+
 </style>

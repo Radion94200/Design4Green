@@ -1,5 +1,5 @@
 <template>
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <nav class="navbar sticky-top navbar-expand-lg navbar-light bg-light">
         <a class="navbar-brand" @click="sendExtend('app-home')">
             <img id="navbar-logo" src="../assets/tree_standalone.png" alt="logo">
             Home
