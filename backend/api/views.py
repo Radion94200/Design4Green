@@ -8,6 +8,11 @@ from api.serializers import QuartierSerializer
 
 import pandas as pd
 
+from api.models import Region
+from api.models import Departement
+from api.models import Commune
+from api.models import Quartier
+
 
 class RegionViewSet(viewsets.ModelViewSet):
     queryset = Region.objects.all()
