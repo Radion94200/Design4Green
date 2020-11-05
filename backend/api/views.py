@@ -36,6 +36,42 @@ class QuartierViewSet(viewsets.ModelViewSet):
     serializer_class = QuartierSerializer
 
 
+def fill_region(query, frame_values):
+    if query.exists():
+        reg = query.get()
+    else:
+        reg = Region(nom=frame_values["Libreg"])
+        reg.save()
+
+    return reg
+
+
+def fill_departement(query, frame_values, reg):
+    if query.exists():
+        dep = query.get()
+    else:
+        dep = Departement(
+            nom=frame_values["Libreg"],
+            reg=reg
+        )
+        dep.save()
+
+    return dep
+
+
+def fill_commune(query, frame_values, dep):
+    if query.exists():
+        com = query.get()
+    else:
+        com = Commune(
+            nom=frame_values["Libcom"],
+            departement=dep
+        )
+        com.save()
+
+    return com
+
+
 class GenerateDBView(views.APIView):
     def get(self, request):
         df_communes = pd.read_csv(f"../input_bdd/infos-communes.csv", sep='\t',
@@ -45,33 +81,36 @@ class GenerateDBView(views.APIView):
 
         for _, row in df_regions.iterrows():
             reg_query = Region.objects.filter(nom=row["Libreg"])
-            if reg_query.exists():
-                reg = reg_query.get()
-            else:
-                reg = Region(
-                    nom=row["Libreg"]
-                )
-                reg.save()
+            reg = fill_region(reg_query, row)
+            #if reg_query.exists():
+            #    reg = reg_query.get()
+            #else:
+            #    reg = Region(
+            #        nom=row["Libreg"]
+            #    )
+            #    reg.save()
 
             dep_query = Departement.objects.filter(nom=row["Libdep"])
-            if dep_query.exists():
-                dep = dep_query.get()
-            else:
-                dep = Departement(
-                    nom=row["Libdep"],
-                    region=reg
-                )
-                dep.save()
+            dep = fill_departement(dep_query, row, reg)
+            #if dep_query.exists():
+            #    dep = dep_query.get()
+            #else:
+            #    dep = Departement(
+            #        nom=row["Libdep"],
+            #        region=reg
+            #    )
+            #    dep.save()
 
             com_query = Commune.objects.filter(nom=row["Libcom"])
-            if com_query.exists():
-                com = com_query.get()
-            else:
-                com = Commune(
-                    nom=row["Libcom"],
-                    departement=dep
-                )
-                com.save()
+            com = fill_commune(com_query, row, dep)
+            #if com_query.exists():
+            #    com = com_query.get()
+            #else:
+            #    com = Commune(
+            #        nom=row["Libcom"],
+            #        departement=dep
+            #    )
+            #    com.save()
 
             Q = Quartier(
                 commune=com,
