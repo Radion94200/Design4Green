@@ -5,7 +5,7 @@
         </div>
         <div class="p presentation-content">
             <p>
-                Brief speech about what the is for (context, ..)
+
             </p>
         </div>
     </div>
