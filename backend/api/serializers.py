@@ -1,5 +1,8 @@
 from rest_framework import serializers
-from api.models import *
+try:
+    from api.models import *
+except Exception:
+    from api.models import *
 
 
 class RegionSerializer(serializers.ModelSerializer):
