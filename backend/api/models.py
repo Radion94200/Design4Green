@@ -31,7 +31,8 @@ class Commune(models.Model):
                 "comp_num",
                 "code_iris",
                 "latitude",
-                "longitude"
+                "longitude",
+                "geojson"
             )
 
 
@@ -41,9 +42,11 @@ class Quartier(models.Model):
     score_global_dep = models.IntegerField(default=-1)
     score_global_region = models.IntegerField(default=-1)
     score = models.IntegerField(default=-1)
+    # Map
+    code_iris = models.CharField(max_length=255, default="")
+    geojson = models.TextField(default="")
     # Indicateurs
     population = models.IntegerField(default=-1)
-    code_iris = models.CharField(max_length=255, default="")
     acces_num = models.IntegerField(default=-1)
     acces_info = models.IntegerField(default=-1)
     comp_admin = models.IntegerField(default=-1)

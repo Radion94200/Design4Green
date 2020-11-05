@@ -12,8 +12,9 @@ export default class ApiService {
         this.routes = {
             regions: '/regions',
             departments: '/departements',
-            cities: '/communes/',
-            neigh: '/quartiers'
+            cities: '/communes',
+            neigh: '/quartiers',
+            geojson: '/geojson'
         }
     }
 
@@ -53,6 +54,16 @@ export default class ApiService {
         return this.service.get(`${this.baseUrl}${this.routes.cities}`, {
             params: {
                 search: query
+            }
+        }).then(function(res) {
+            return res.data.results
+        })
+    }
+
+    getCity(query) {
+        return this.service.get(`${this.baseUrl}${this.routes.cities}`, {
+            params: {
+                nom: query
             }
         }).then(function(res) {
             return res.data.results

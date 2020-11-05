@@ -1,3 +1,6 @@
+import json
+
+from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework import viewsets, views, filters
 from rest_framework.response import Response
 
@@ -16,10 +19,11 @@ class DepartementViewSet(viewsets.ModelViewSet):
 
 
 class CommuneViewSet(viewsets.ModelViewSet):
-    queryset = Commune.objects.all()
+    queryset = Commune.objects.all().order_by('nom')
     serializer_class = CommuneSerializer
     search_fields = ['^nom']
-    filter_backends = (filters.SearchFilter,)
+    filter_fields = ['nom']
+    filter_backends = (filters.SearchFilter, DjangoFilterBackend)
 
 
 class QuartierViewSet(viewsets.ModelViewSet):
@@ -100,4 +104,14 @@ class GenerateDBView(views.APIView):
                 if Q.acces_info == -1:
                     Q.delete()
 
+        with open('../input_bdd/contours-iris.geojson') as fd:
+            geojson_str = fd.read()
+        geojson = json.loads(geojson_str)
+        for q in geojson["features"]:
+            query = Quartier.objects.filter(
+                code_iris=q["properties"]["code_iris"], geojson="")
+            if query.exists():
+                Q = query.get()
+                Q.geojson = q
+                Q.save()
         return Response({})
