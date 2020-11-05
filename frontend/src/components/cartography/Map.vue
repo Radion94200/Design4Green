@@ -1,7 +1,10 @@
 <template>
     <div id="map">
         <div id="map-content">
-            map here
+            <span class="panel-title">Map</span>
+            <div>
+                map
+            </div>
         </div>
     </div>
 </template>
@@ -15,12 +18,16 @@
 <style scoped>
     #map {
         width: 90%;
+        margin-top: 15px;
     }
 
     #map-content {
         padding: 20px;
         border: solid 5px darkgreen;
         border-radius: 10px;
+
+        display: grid;
+        align-items: center;
 
         background-color: lightgreen;
     }

@@ -4,7 +4,7 @@
     <div id="content">
 
       <div id="app-home-title" class="title" @click="extend('app-home')">HOME</div>
-      <div id="app-home" class="collapse">
+      <div id="app-home" class="collapse show">
         <Presentation></Presentation>
       </div>
 
