@@ -31,7 +31,8 @@ class Commune(models.Model):
                 "comp_num",
                 "code_iris",
                 "latitude",
-                "longitude"
+                "longitude",
+                "geojson"
             )
 
 

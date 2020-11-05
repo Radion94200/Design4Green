@@ -13,7 +13,8 @@ export default class ApiService {
             regions: '/regions',
             departments: '/departements',
             cities: '/communes',
-            neigh: '/quartiers'
+            neigh: '/quartiers',
+            geojson: '/geojson'
         }
     }
 
@@ -63,5 +64,17 @@ export default class ApiService {
             console.log('done');
             return depList
         });
+    }
+
+    getGeojson(commune) {
+        let self = this;
+        let geojson = {}
+
+        return (async function () {
+            geojson = await self.service.get(`${self.baseUrl}${self.routes.geojson}?search=${commune}`)
+        })().then(function () {
+            console.log('done');
+            return geojson;
+        })
     }
 }

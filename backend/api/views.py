@@ -107,7 +107,7 @@ class GenerateDBView(views.APIView):
         geojson = json.loads(geojson_str)
         for q in geojson["features"]:
             query = Quartier.objects.filter(
-                code_iris=q["properties"]["code_iris"],geojson="")
+                code_iris=q["properties"]["code_iris"], geojson="")
             if query.exists():
                 Q = query.get()
                 Q.geojson = q
