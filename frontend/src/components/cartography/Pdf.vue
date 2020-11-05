@@ -19,10 +19,12 @@
 <script>
     export default {
         name: "Pdf",
+        props: {
+            commune: String
+        },
         data() {
             return {
-                url: "http://vps-2ea52359.vps.ovh.net:8080",
-                commune: ""
+                url: "http://vps-2ea52359.vps.ovh.net:8080"
             }
         }
     }

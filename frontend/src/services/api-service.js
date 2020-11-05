@@ -59,16 +59,4 @@ export default class ApiService {
             return res.data.results
         })
     }
-
-    getGeojson(commune) {
-        let self = this;
-        let geojson = {}
-
-        return (async function () {
-            geojson = await self.service.get(`${self.baseUrl}${self.routes.geojson}?search=${commune}`)
-        })().then(function () {
-            console.log('done');
-            return geojson;
-        })
-    }
 }

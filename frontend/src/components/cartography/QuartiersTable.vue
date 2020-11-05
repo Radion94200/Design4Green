@@ -1,7 +1,7 @@
 <template>
     <div class="card">
         <div class="card-header">
-            <h3>Résultats détaillés</h3>
+            <h3>Résultats détaillés - {{this.commune.nom}}</h3>
         </div>
         <div class="card-body">
             <div class="table-responsive-sm">
@@ -18,32 +18,14 @@
                     </tr>
                     </thead>
                     <tbody>
-                    <tr>
-                        <th scope="row">1</th>
-                        <td>Mark</td>
-                        <td>Otto</td>
-                        <td>@mdo</td>
-                        <td>Otto</td>
-                        <td>@mdo</td>
-                        <td>Mark</td>
-                    </tr>
-                    <tr>
-                        <th scope="row">2</th>
-                        <td>Jacob</td>
-                        <td>Thornton</td>
-                        <td>@fat</td>
-                        <td>Otto</td>
-                        <td>@mdo</td>
-                        <td>Mark</td>
-                    </tr>
-                    <tr>
-                        <th scope="row">3</th>
-                        <td>Larry</td>
-                        <td>the Bird</td>
-                        <td>@twitter</td>
-                        <td>Otto</td>
-                        <td>@mdo</td>
-                        <td>Mark</td>
+                    <tr :key="val.code_iris" v-for="val in this.commune['quartiers']">
+                        <th scope="row">{{val.code_iris}}</th>
+                        <td>{{val.population}}</td>
+                        <td>{{val.score}}</td>
+                        <td>{{val.score_global_dep}}</td>
+                        <td>{{val.score_global_region}}</td>
+                        <td>{{val.score_acces}}</td>
+                        <td>{{val.score_comp}}</td>
                     </tr>
                     </tbody>
                 </table>
@@ -54,10 +36,15 @@
 
 <script>
     export default {
-        name: "QuartiersTable"
+        name: "QuartiersTable",
+        props: {
+            commune: Object
+        }
     }
 </script>
 
 <style scoped>
-
+    td {
+        text-align: center;
+    }
 </style>

@@ -3,7 +3,7 @@
         <div class="row">
             <div class="col-sm-2">
                 <div class="row">
-                    <Recherche></Recherche>
+                    <Recherche @recherche="recherche"></Recherche>
                 </div>
                 <br>
                 <div class="row">
@@ -15,11 +15,11 @@
             </div>
             <div class="col-sm-6">
                 <div class="row">
-                    <QuartiersTable></QuartiersTable>
+                    <QuartiersTable :commune="this.commune"></QuartiersTable>
                 </div>
                 <br>
                 <div class="row">
-                    <Pdf></Pdf>
+                    <Pdf :commune="this.commune.nom"></Pdf>
                 </div>
             </div>
         </div>
@@ -35,7 +35,20 @@
 
     export default {
         name: "Cartographie",
-        components: {Legend, Map, Recherche, Pdf, QuartiersTable}
+        components: {Legend, Map, Recherche, Pdf, QuartiersTable},
+        data () {
+            return {
+                commune: {
+                    nom: "",
+                    quartiers: []
+                }
+            }
+        },
+        methods: {
+            recherche (commune) {
+                this.commune = commune
+            }
+        }
     }
 </script>
 

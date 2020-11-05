@@ -41,7 +41,7 @@
                 <label for="city-input">Commune</label>
                 <input @change="searchCity" v-model="cityInput" type="text" class="form-control" id="city-input">
                 <div class="search-results">
-                    <div class="search-result" v-for="c of cityResults.slice(0, 5)" :key="c.id">
+                    <div class="search-result" v-for="c of cityResults.slice(0, 10)" :key="c.id">
                             <span @click="setCityInput(c.nom)">
                                 {{c.nom}}
                             </span>
@@ -50,7 +50,7 @@
             </div>
 
             <div class="input-group-menu">
-                <button class="btn btn-primary" style="width: 100%" @click="submit">Submit</button>
+                <button class="btn btn-primary" style="width: 100%" @click="submit">Envoyer</button>
             </div>
         </div>
     </div>
@@ -146,8 +146,11 @@
             }
         },
         methods: {
-            submit() {
-                // todo
+            async submit() {
+                const res = await this.service.searchCity(this.cityInput)
+                if (res.length === 1) {
+                    this.$emit("recherche", res[0])
+                }
             },
 
             listRegions() {
@@ -199,15 +202,15 @@
 
 <style scoped>
     .search-results {
-        width: 80%;
+        width: 86%;
         position: absolute;
         text-align: center;
     }
 
     .search-result {
         border-bottom: solid 1px black;
-        border-left: solid 3px black;
-        border-right: solid 3px black;
+        border-left: solid 1px black;
+        border-right: solid 1px black;
         background-color: white;
 
         cursor: pointer;

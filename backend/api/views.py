@@ -18,9 +18,9 @@ class DepartementViewSet(viewsets.ModelViewSet):
 
 
 class CommuneViewSet(viewsets.ModelViewSet):
-    queryset = Commune.objects.all()
+    queryset = Commune.objects.all().order_by('nom')
     serializer_class = CommuneSerializer
-    search_fields = ['^nom']
+    search_fields = ['nom']
     filter_backends = (filters.SearchFilter,)
 
 
