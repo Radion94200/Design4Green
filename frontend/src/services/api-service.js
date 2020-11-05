@@ -1,6 +1,6 @@
 const axios = require('axios').default;
 
-const apiHost = 'vps-2ea52359.vps.ovh.net:8000';
+const apiHost = 'localhost:8000';
 
 
 export default class ApiService {
@@ -20,26 +20,48 @@ export default class ApiService {
     listRegions() {
         let self = this;
         let regionList = [];
-        let regionCount = 0;
+        let regionCount = -1;
         let pageIndex = 1;
 
-        const listRegionCall = function() {
-            return self.service.get(`${self.baseUrl}${self.routes.regions}?page=${pageIndex}`)
-                .then(function(response) {
-                    regionCount = response.data.count;
-                    for (let a of response.data.results) {
-                        regionList.push(a)
-                    }
+        return (async function loop() {
+            while (regionList.length !== regionCount) {
+                await self.service.get(`${self.baseUrl}${self.routes.regions}?page=${pageIndex}`)
+                    .then(function(response) {
+                        regionCount = response.data.count;
+                        response.data.results.forEach(function(e) {
+                            regionList.push(e)
+                        });
 
-                    if (regionList.length < regionCount) {
-                        pageIndex  += 1;
-                        return listRegionCall()
-                    }
-                })
-        };
-
-        return listRegionCall().then(function() {
+                        pageIndex += 1;
+                    });
+            }
+        })().then(function() {
+            console.log('done');
             return regionList
-        })
+        });
+    }
+
+    listDepartments() {
+        let self = this;
+        let depList = [];
+        let depCount = -1;
+        let pageIndex = 1;
+
+        return (async function loop() {
+            while (depList.length !== depCount) {
+                await self.service.get(`${self.baseUrl}${self.routes.departments}?page=${pageIndex}`)
+                    .then(function(response) {
+                        depCount = response.data.count;
+                        response.data.results.forEach(function(e) {
+                            depList.push(e)
+                        });
+
+                        pageIndex += 1;
+                    });
+            }
+        })().then(function() {
+            console.log('done');
+            return depList
+        });
     }
 }

@@ -43,19 +43,31 @@
         name: "Filters",
         data() {
             return {
+                // service
                 service: null,
+
+                // data
+                regionList: [],
             };
         },
         mounted() {
             this.service = new ApiService();
+
+            // DEBUG ONLY fixme
+            this.listRegions();
         },
         methods: {
             submit() {
-                this.listRegions();
+                // todo
             },
 
             listRegions() {
-                this.service.listRegions();
+                let self = this;
+
+                this.service.listRegions()
+                    .then(function(r) {
+                        self.regionList = r;
+                    });
             }
         }
 
@@ -73,8 +85,8 @@
         align-items: center;
 
         border-radius: 10px;
-        border: solid 5px darkgreen;
-        background-color: lightgreen;
+        border: solid 5px black;
+        background-color: lightgrey;
     }
 
     .input-group-menu {
