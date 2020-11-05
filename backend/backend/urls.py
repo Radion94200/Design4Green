@@ -16,7 +16,12 @@ Including another URLconf
 from django.conf.urls import url
 from rest_framework import routers
 
-from api.views import *
+from api.views import RegionViewSet
+from api.views import DepartementViewSet
+from api.views import CommuneViewSet
+from api.views import QuartierViewSet
+from api.views import GenerateDBView
+
 from rest_framework.urlpatterns import format_suffix_patterns
 
 router = routers.DefaultRouter()
