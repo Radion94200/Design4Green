@@ -59,4 +59,14 @@ export default class ApiService {
             return res.data.results
         })
     }
+
+    getCity(query) {
+        return this.service.get(`${this.baseUrl}${this.routes.cities}`, {
+            params: {
+                nom: query
+            }
+        }).then(function(res) {
+            return res.data.results
+        })
+    }
 }

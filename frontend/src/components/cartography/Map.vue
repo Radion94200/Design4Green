@@ -38,14 +38,16 @@
             LTileLayer,
             LGeoJson
         },
+        props: {
+            commune: Object
+        },
         data() {
             return {
                 show: true,
                 service: null,
                 enableTooltip: true,
-                commune: null,
-                zoom: 6,
-                center: [48, -1.219482],
+                zoom: 5,
+                center: [47, 2],
                 geojson: null,
                 url: 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
                 attribution:
@@ -61,6 +63,22 @@
                     if (feature["properties"]["code_iris"] === el["code_iris"]) {
                         return el
                     }
+                }
+            }
+        },
+        watch: {
+            commune: function () {
+                if (this.commune['nom'] !== "") {
+                    const JSON5 = require('json5')
+                    let geojson = {
+                        "type": "FeatureCollection",
+                        "features": []
+                    }
+                    for (let q of this.commune['quartiers'])
+                    {
+                        geojson['features'].push(JSON5.parse(q['geojson']))
+                    }
+                    this.geojson = geojson
                 }
             }
         },

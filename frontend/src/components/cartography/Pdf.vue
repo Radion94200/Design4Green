@@ -6,11 +6,28 @@
         <div class="card-body">
             <p>
                 Ce site internet vous permet de récupérer des résultats détaillés sur votre commune au format PDF.<br>
-                Pour cela, veuillez dans un premier temps sélectionner votre ville. Lorsque la ville sera sélectionnée, un bouton apparaitra pour récupérer ce document PDF.
+                Pour cela, veuillez dans un premier temps sélectionner votre ville. Lorsque la ville sera sélectionnée, les boutons seront accessibles.
             </p>
-            <div>
-                <a class="btn btn-warning" :href="this.url + '/pdf_view?commune=' + this.commune" target="_blank">Voir les résultats</a> <!--TODO : Add commune event -->
-                <a class="btn btn-warning" :href="this.url + '/pdf_download?commune=' + this.commune" target="_blank">Télécharger les résultats</a>
+            <div v-if="this.commune === ''">
+                <button class="btn btn-warning" disabled>Voir les résultats</button>
+                <button class="btn btn-warning" disabled>Télécharger les résultats</button>
+            </div>
+            <div v-else>
+                <a
+                        class="btn btn-warning"
+                        :href="this.url + '/pdf_view?commune=' + this.commune"
+                        target="_blank"
+                >
+                    Voir les résultats
+                </a>
+
+                <a
+                        class="btn btn-warning"
+                        :href="this.url + '/pdf_download?commune=' + this.commune"
+                        target="_blank"
+                >
+                    Télécharger les résultats
+                </a>
             </div>
         </div>
     </div>
@@ -31,5 +48,12 @@
 </script>
 
 <style scoped>
-
+a {
+    margin-left: 10px;
+    margin-right: 10px;
+}
+button {
+    margin-left: 10px;
+    margin-right: 10px;
+}
 </style>

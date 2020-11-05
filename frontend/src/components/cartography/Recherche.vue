@@ -42,9 +42,11 @@
                 <input @change="searchCity" v-model="cityInput" type="text" class="form-control" id="city-input">
                 <div class="search-results">
                     <div class="search-result" v-for="c of cityResults.slice(0, 10)" :key="c.id">
-                            <span @click="setCityInput(c.nom)">
+                        <div @click="setCityInput(c.nom)">
+                            <span>
                                 {{c.nom}}
                             </span>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -147,7 +149,7 @@
         },
         methods: {
             async submit() {
-                const res = await this.service.searchCity(this.cityInput)
+                const res = await this.service.getCity(this.cityInput)
                 if (res.length === 1) {
                     this.$emit("recherche", res[0])
                 }

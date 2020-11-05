@@ -11,7 +11,7 @@
                 </div>
             </div>
             <div class="col-sm-4">
-                <Map></Map>
+                <Map :commune="this.commune"></Map>
             </div>
             <div class="col-sm-6">
                 <div class="row">

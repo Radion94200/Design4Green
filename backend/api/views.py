@@ -1,5 +1,6 @@
 import json
 
+from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework import viewsets, views, filters
 from rest_framework.response import Response
 
@@ -20,8 +21,9 @@ class DepartementViewSet(viewsets.ModelViewSet):
 class CommuneViewSet(viewsets.ModelViewSet):
     queryset = Commune.objects.all().order_by('nom')
     serializer_class = CommuneSerializer
-    search_fields = ['nom']
-    filter_backends = (filters.SearchFilter,)
+    search_fields = ['^nom']
+    filter_fields = ['nom']
+    filter_backends = (filters.SearchFilter, DjangoFilterBackend)
 
 
 class QuartierViewSet(viewsets.ModelViewSet):
