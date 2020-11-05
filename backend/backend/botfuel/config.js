@@ -3,4 +3,4 @@ module.exports = {
     name: 'botfuel',
   },
   locale: 'fr',
-}
+};

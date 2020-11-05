@@ -1,7 +1,7 @@
 const {
   Bot, BotTextMessage, UserTextMessage,
 } = require('botfuel-dialog');
-const config = require('../test-config');
+const config = require('../config');
 
 describe('Test bot answers', () => {
   test('Bot says hello', async () => {
