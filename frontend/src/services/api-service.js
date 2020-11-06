@@ -1,6 +1,6 @@
 const axios = require('axios').default;
 
-const apiHost = 'http://vps-2ea52359.vps.ovh.net:8000/';
+const apiHost = 'http://vps-2ea52359.vps.ovh.net:8000';
 
 
 export default class ApiService {
