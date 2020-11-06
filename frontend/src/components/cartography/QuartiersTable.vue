@@ -4,7 +4,7 @@
             <h3>Résultats Détaillés - {{this.commune.nom}}</h3>
         </div>
         <div class="card-body">
-            <div class="table-responsivegit -sm">
+            <div class="table-responsive-sm">
                 <table class="table">
                     <caption>Données des quartiers</caption>
                     <thead>
