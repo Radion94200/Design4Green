@@ -12,6 +12,12 @@ Le but de ce hackathon était de proposer une solution `Green` à un problèmes 
 ### Gitlab
 [https://gitlab.com/dadard/Design4Green](https://gitlab.com/dadard/Design4Green)
 
+## SonarQube
+[http://vps-2ea52359.vps.ovh.net:9000](http://vps-2ea52359.vps.ovh.net:9000)
+
+## VPS
+[http://vps-2ea52359.vps.ovh.net](http://vps-2ea52359.vps.ovh.net:9000)
+
 ## Installation
 
 Pour installer notre projet en local, nous vous conseillons d'utiliser un environnement virtuel python.  
