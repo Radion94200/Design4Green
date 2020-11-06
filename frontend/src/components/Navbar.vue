@@ -17,12 +17,7 @@
 
 <script>
     export default {
-        name: "Navbar",
-        methods: {
-            sendExtend(id) {
-                this.$emit('onExtend', id)
-            }
-        }
+        name: "Navbar"
     }
 </script>
 
