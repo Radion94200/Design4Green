@@ -9,7 +9,7 @@
             <ul class="navbar-nav mr-auto">
             </ul>
             <div class="my-2 my-lg-0">
-                <span class="text-muted">made by <b>Team 49</b></span>
+                <span class="text-muted">made by <strong>Team 49</strong></span>
             </div>
         </div>
     </nav>
