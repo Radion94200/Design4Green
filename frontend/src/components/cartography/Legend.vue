@@ -6,11 +6,10 @@
         <div class="card-body">
             <div style="text-align: center"><strong>{{this.desc}}</strong></div>
             <canvas id="canvas"></canvas>
-            <strong>Score* :</strong> Score de la commune<br>
-            <strong>Score* Département :</strong> Score de la commune par rapport au département<br>
-            <strong>Score* Région :</strong> Score de la commune par rapport à la région<br>
-            <strong>Population :</strong> Nombres d'habitants dans la zone<br>
-            <br>*Score : indice de fragilité numérique
+            <strong>Score :</strong> Indice de fragilité numérique de la commune<br>
+            <strong>Score Département :</strong> Indice de fragilité numérique de la commune par rapport au département<br>
+            <strong>Score Région :</strong> Indice de fragilité numérique de la commune par rapport à la région<br>
+            <strong>Population :</strong> Nombres d'habitants dans la zone
         </div>
     </div>
 </template>
