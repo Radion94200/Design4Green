@@ -1,11 +1,12 @@
 import json
-
+import pandas as pd
 from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework import viewsets, views, filters
 from rest_framework.response import Response
 
-from api.serializers import *
-import pandas as pd
+from api.serializers import RegionSerializer, DepartementSerializer, \
+    CommuneSerializer, QuartierSerializer
+from api.models import Region, Departement, Commune, Quartier
 
 
 class RegionViewSet(viewsets.ModelViewSet):
@@ -31,42 +32,59 @@ class QuartierViewSet(viewsets.ModelViewSet):
     serializer_class = QuartierSerializer
 
 
+def complete_data():
+    df_communes = pd.read_csv(f"../input_bdd/infos-communes.csv", sep='\t',
+                              encoding="utf-16")
+
+    for _, row in df_communes.iterrows():
+        q_query = Quartier.objects.filter(
+            population=int(row["Population"].replace("\xa0", "")),
+            commune__nom=row["Nom Com"], code_iris=""
+        )
+        if q_query.exists():
+            if len(q_query.values()) >= 1:
+                Q = q_query.all()[0]
+            else:
+                Q = q_query.get()
+            Q.code_iris = row["Code Iris"]
+            Q.score = int(row["SCORE GLOBAL "])
+            Q.acces_num = int(row["ACCÈS AUX INTERFACES NUMERIQUES"])
+            Q.acces_info = int(row["ACCES A L'INFORMATION"])
+            Q.comp_admin = int(row["COMPETENCES ADMINISTATIVES"])
+            Q.comp_num = int(row["COMPÉTENCES NUMÉRIQUES / SCOLAIRES"])
+            Q.score_acces = int(row["GLOBAL ACCES"])
+            Q.score_comp = int(row["GLOBAL COMPETENCES"])
+            Q.save()
+
+        for Q in Quartier.objects.all():
+            if Q.acces_info == -1:
+                Q.delete()
+
+
+def add_geojson():
+    with open('../input_bdd/contours-iris.geojson') as fd:
+        geojson_str = fd.read()
+    geojson = json.loads(geojson_str)
+    for q in geojson["features"]:
+        query = Quartier.objects.filter(
+            code_iris=q["properties"]["code_iris"], geojson="")
+        if query.exists():
+            Q = query.get()
+            Q.geojson = q
+            Q.save()
+
+
 class GenerateDBView(views.APIView):
     def get(self, request):
-        df_communes = pd.read_csv(f"../input_bdd/infos-communes.csv", sep='\t',
-                                  encoding="utf-16")
         df_regions = pd.read_csv(f"../input_bdd/infos-regions.csv", sep='\t',
                                  encoding="utf-16")
 
         for _, row in df_regions.iterrows():
-            reg_query = Region.objects.filter(nom=row["Libreg"])
-            if reg_query.exists():
-                reg = reg_query.get()
-            else:
-                reg = Region(
-                    nom=row["Libreg"]
-                )
-                reg.save()
-
-            dep_query = Departement.objects.filter(nom=row["Libdep"])
-            if dep_query.exists():
-                dep = dep_query.get()
-            else:
-                dep = Departement(
-                    nom=row["Libdep"],
-                    region=reg
-                )
-                dep.save()
-
-            com_query = Commune.objects.filter(nom=row["Libcom"])
-            if com_query.exists():
-                com = com_query.get()
-            else:
-                com = Commune(
-                    nom=row["Libcom"],
-                    departement=dep
-                )
-                com.save()
+            reg, _ = Region.objects.get_or_create(nom=row["Libreg"])
+            dep, _ = Departement.objects.get_or_create(nom=row["Libdep"],
+                                                       region=reg)
+            com, _ = Commune.objects.get_or_create(nom=row["Libcom"],
+                                                   departement=dep)
 
             Q = Quartier(
                 commune=com,
@@ -80,38 +98,7 @@ class GenerateDBView(views.APIView):
             )
             Q.save()
 
-        for _, row in df_communes.iterrows():
-            q_query = Quartier.objects.filter(
-                population=int(row["Population"].replace("\xa0", "")),
-                commune__nom=row["Nom Com"], code_iris=""
-            )
-            if q_query.exists():
-                if len(q_query.values()) >= 1:
-                    Q = q_query.all()[0]
-                else:
-                    Q = q_query.get()
-                Q.code_iris = row["Code Iris"]
-                Q.score = int(row["SCORE GLOBAL "])
-                Q.acces_num = int(row["ACCÈS AUX INTERFACES NUMERIQUES"])
-                Q.acces_info = int(row["ACCES A L'INFORMATION"])
-                Q.comp_admin = int(row["COMPETENCES ADMINISTATIVES"])
-                Q.comp_num = int(row["COMPÉTENCES NUMÉRIQUES / SCOLAIRES"])
-                Q.score_acces = int(row["GLOBAL ACCES"])
-                Q.score_comp = int(row["GLOBAL COMPETENCES"])
-                Q.save()
+        complete_data()
+        add_geojson()
 
-            for Q in Quartier.objects.all():
-                if Q.acces_info == -1:
-                    Q.delete()
-
-        with open('../input_bdd/contours-iris.geojson') as fd:
-            geojson_str = fd.read()
-        geojson = json.loads(geojson_str)
-        for q in geojson["features"]:
-            query = Quartier.objects.filter(
-                code_iris=q["properties"]["code_iris"], geojson="")
-            if query.exists():
-                Q = query.get()
-                Q.geojson = q
-                Q.save()
         return Response({})

@@ -15,9 +15,10 @@ Including another URLconf
 """
 from django.conf.urls import url
 from rest_framework import routers
-
-from api.views import *
 from rest_framework.urlpatterns import format_suffix_patterns
+
+from api.views import RegionViewSet, CommuneViewSet, QuartierViewSet, \
+    DepartementViewSet,GenerateDBView
 
 router = routers.DefaultRouter()
 router.register(r'regions', RegionViewSet)
