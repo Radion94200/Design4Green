@@ -1,5 +1,6 @@
 from rest_framework import serializers
-from api.models import *
+
+from api.models import Departement, Region, Commune, Quartier
 
 
 class RegionSerializer(serializers.ModelSerializer):

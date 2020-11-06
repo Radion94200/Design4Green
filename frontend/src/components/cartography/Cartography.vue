@@ -1,17 +1,25 @@
 <template>
     <div id="cartography" class="container-fluid">
         <div class="row">
-            <div class="col-sm-3">
+            <div class="col-sm-2">
                 <div class="row">
-                    <Filters></Filters>
+                    <Recherche @recherche="recherche"></Recherche>
                 </div>
-<!--                <div class="row">-->
-<!--                    <CitySearch></CitySearch>-->
-<!--                </div>-->
-            </div>
-            <div class="col">
+                <br>
                 <div class="row">
-                    <Map></Map>
+                    <Legend></Legend>
+                </div>
+            </div>
+            <div class="col-sm-4">
+                <Map :commune="this.commune"></Map>
+            </div>
+            <div class="col-sm-6">
+                <div class="row">
+                    <QuartiersTable :commune="this.commune"></QuartiersTable>
+                </div>
+                <br>
+                <div class="row">
+                    <Pdf :commune="this.commune.nom"></Pdf>
                 </div>
             </div>
         </div>
@@ -19,24 +27,33 @@
 </template>
 
 <script>
-    import Filters from "@/components/cartography/Filters";
+    import Recherche from "@/components/cartography/Recherche";
     import Map from "@/components/cartography/Map";
+    import Legend from "@/components/cartography/Legend";
+    import Pdf from "@/components/cartography/Pdf";
+    import QuartiersTable from "@/components/cartography/QuartiersTable";
+
     export default {
         name: "Cartographie",
-        components: {Map, Filters}
+        components: {Legend, Map, Recherche, Pdf, QuartiersTable},
+        data () {
+            return {
+                commune: {
+                    nom: "",
+                    quartiers: []
+                }
+            }
+        },
+        methods: {
+            recherche (commune) {
+                this.commune = commune
+            }
+        }
     }
 </script>
 
 <style>
     #cartography {
         margin-top: 10px
-    }
-
-    .panel-title {
-        font-size: 32px;
-        font-family: monospace;
-        text-align: center;
-
-        border-bottom: solid 3px black;
     }
 </style>

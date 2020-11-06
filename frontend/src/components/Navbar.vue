@@ -1,24 +1,15 @@
 <template>
     <nav class="navbar sticky-top navbar-expand-lg navbar-light bg-light">
-        <a class="navbar-brand" @click="sendExtend('app-home')">
+        <a class="navbar-brand">
             <img id="navbar-logo" src="../assets/tree_standalone.png" alt="logo">
-            Home
         </a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
+        <h3>INDICE NATIONAL DE FRAGILITÉ NUMÉRIQUE</h3>
 
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav mr-auto">
-                <li class="nav-item">
-                    <a class="nav-link" @click="sendExtend('app-cartography')">Map</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" @click="sendExtend('app-about')">About</a>
-                </li>
             </ul>
             <div class="my-2 my-lg-0">
-                <span class="text-muted">made by <code>Team 49</code></span>
+                <span class="text-muted">made by <strong>Team 49</strong></span>
             </div>
         </div>
     </nav>
@@ -46,9 +37,4 @@
     .navbar-brand {
         cursor: pointer;
     }
-
-    .nav-link {
-        cursor: pointer;
-    }
-
 </style>

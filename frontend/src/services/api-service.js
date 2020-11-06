@@ -1,19 +1,20 @@
 const axios = require('axios').default;
 
-const apiHost = 'localhost:8000';
+const apiHost = 'http://vps-2ea52359.vps.ovh.net:8000';
 
 
 export default class ApiService {
     constructor() {
         this.service = axios.create();
 
-        this.baseUrl = `http://${apiHost}`;
+        this.baseUrl = apiHost;
 
         this.routes = {
             regions: '/regions',
             departments: '/departements',
-            cities: '/communes/',
-            neigh: '/quartiers'
+            cities: '/communes',
+            neigh: '/quartiers',
+            geojson: '/geojson'
         }
     }
 
@@ -36,7 +37,6 @@ export default class ApiService {
                     });
             }
         })().then(function() {
-            console.log('done');
             return l
         });
     }
@@ -53,6 +53,16 @@ export default class ApiService {
         return this.service.get(`${this.baseUrl}${this.routes.cities}`, {
             params: {
                 search: query
+            }
+        }).then(function(res) {
+            return res.data.results
+        })
+    }
+
+    getCity(query) {
+        return this.service.get(`${this.baseUrl}${this.routes.cities}`, {
+            params: {
+                nom: query
             }
         }).then(function(res) {
             return res.data.results
