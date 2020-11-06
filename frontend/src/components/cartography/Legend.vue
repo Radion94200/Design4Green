@@ -6,10 +6,11 @@
         <div class="card-body">
             <div style="text-align: center"><strong>{{this.desc}}</strong></div>
             <canvas id="canvas"></canvas>
-            <strong>Score :</strong> Score de la commune<br>
-            <strong>Score Département :</strong> Score de la commune par rapport au département<br>
-            <strong>Score Région :</strong> Score de la commune par rapport à la région<br>
+            <strong>Score* :</strong> Score de la commune<br>
+            <strong>Score* Département :</strong> Score de la commune par rapport au département<br>
+            <strong>Score* Région :</strong> Score de la commune par rapport à la région<br>
             <strong>Population :</strong> Nombres d'habitants dans la zone<br>
+            <br>*Score : indice de fragilité numérique
         </div>
     </div>
 </template>
@@ -26,8 +27,8 @@
             drawColorMaps (colormap) {
                 let c = document.getElementById("canvas").getContext('2d')
                 let width = 1
-                for (let j = 0; j < 276; j++) {
-                    c.fillStyle = colormap[275 - j];      // start ind at index 0
+                for (let j = 0; j < 225; j++) {
+                    c.fillStyle = colormap[224 - j];      // start ind at index 0
                     c.fillRect(j * width, 10, width, 100);
                 }
                 c.fillStyle = '#262626';
@@ -38,7 +39,7 @@
             let colormap = require('colormap')
             let colors = colormap({
                 colormap: 'YIGnBu',
-                nshades: 276,
+                nshades: 225,
                 format: 'rgbaString',
                 alpha: [0.7, 0.9]
             })

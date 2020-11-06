@@ -112,7 +112,7 @@ def avg_dic(dic, num):
     dic["score_acces"] = dic["score_acces"] // num
     dic["score_comp"] = dic["score_comp"] // num
     dic["msg_acces_info"] = msg_acces_info(dic["acces_info"])
-    dic["msg_acces_num"] = msg_acces_info(dic["acces_num"])
+    dic["msg_acces_num"] = msg_acces_num(dic["acces_num"])
     dic["msg_comp_admin"] = msg_comp_admin(dic["comp_admin"])
     dic["msg_comp_num"] = msg_comp_num(dic["comp_num"])
     return dic

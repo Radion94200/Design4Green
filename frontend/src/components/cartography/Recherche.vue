@@ -41,7 +41,7 @@
                 <label for="city-input">Commune</label>
                 <input @change="searchCity" v-model="cityInput" type="text" class="form-control" id="city-input">
                 <div class="search-results">
-                    <div class="search-result" v-for="c of cityResults.slice(0, 10)" :key="c.id">
+                    <div class="search-result" v-for="c of cityResults.slice(0, 5)" :key="c.id">
                         <div @click="setCityInput(c.nom)">
                             <span>
                                 {{c.nom}}
@@ -220,8 +220,8 @@
     }
 
     .input-group-menu {
-        margin-top: 20px;
-        margin-bottom: 20px;
+        margin-top: 10px;
+        margin-bottom: 10px;
         width: 100%;
     }
 
