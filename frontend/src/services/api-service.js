@@ -1,13 +1,13 @@
 const axios = require('axios').default;
 
-const apiHost = 'localhost:8000';
+const apiHost = 'http://vps-2ea52359.vps.ovh.net:8000/';
 
 
 export default class ApiService {
     constructor() {
         this.service = axios.create();
 
-        this.baseUrl = `http://${apiHost}`;
+        this.baseUrl = apiHost;
 
         this.routes = {
             regions: '/regions',
