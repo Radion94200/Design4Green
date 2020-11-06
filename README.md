@@ -16,7 +16,7 @@ Le but de ce hackathon était de proposer une solution `Green` à un problèmes 
 [http://vps-2ea52359.vps.ovh.net:9000](http://vps-2ea52359.vps.ovh.net:9000)
 
 ## VPS
-[http://vps-2ea52359.vps.ovh.net](http://vps-2ea52359.vps.ovh.net:9000)
+[http://vps-2ea52359.vps.ovh.net](http://vps-2ea52359.vps.ovh.net)
 
 ## Installation
 
