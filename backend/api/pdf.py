@@ -49,7 +49,6 @@ def msg_comp_admin(score):
     return message
 
 
-# Opens up page as PDF
 
 
 class ViewPDF(views.APIView):
@@ -61,17 +60,8 @@ class ViewPDF(views.APIView):
             commune = c_query.get()
             q_query = Quartier.objects.filter(commune=commune)
             quartiers = q_query.values()
-            score_global = 0
-            dep = 0
-            reg = 0
-            population = 0
-            acces_num = 0
-            acces_info = 0
-            comp_admin = 0
-            comp_num = 0
-            score_acces = 114
-            score_comp = 84
-            num = 0
+            score_global,dep,reg,population,acces_num,acces_info=0,0,0,0,0,0
+            comp_admin, comp_num, score_acces, score_comp, num = 0,0,0,0,0
             for i in quartiers:
                 num += 1
                 score_global += i["score"]
