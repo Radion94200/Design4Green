@@ -41,7 +41,7 @@
                 <label for="city-input">Commune</label>
                 <input @change="searchCity" v-model="cityInput" type="text" class="form-control" id="city-input">
                 <div class="search-results">
-                    <div class="search-result" v-for="c of cityResults.slice(0, 5)" :key="c.id">
+                    <div class="search-result" v-for="c of cityResults.slice(0, 4)" :key="c.id">
                         <div @click="setCityInput(c.nom)">
                             <span>
                                 {{c.nom}}

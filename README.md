@@ -1,8 +1,16 @@
 # Design4Green
-[![Quality Gate Status](http://vps-2ea52359.vps.ovh.net:9000/api/project_badges/measure?project=d4g&metric=alert_status)](http://vps-2ea52359.vps.ovh.net:9000/dashboard?id=d4g)
+[![Quality Gate Status](http://vps-2ea52359.vps.ovh.net:9000/api/project_badges/measure?project=d4g&metric=alert_status)](http://vps-2ea52359.vps.ovh.net:9000/dashboard?id=d4g) [![Pipeline status](https://gitlab.com/dadard/Design4Green/badges/master/pipeline.svg)](https://gitlab.com/dadard/Design4Green/-/commits/master)
+
+
 
 Voici le repository officiel de la Team `Green Society` (équipe 49).  
 Le but de ce hackathon était de proposer une solution `Green` à un problèmes posé. Cette année le challenge proposait d'apporter une solution à l'INR (Institut Numérique Responsable) afin de pouvoir présenter les résultats de l'indice de fragilité numérique.
+
+## Repository
+### Github
+[https://github.com/Radion94200/Design4Green](https://github.com/Radion94200/Design4Green)
+### Gitlab
+[https://gitlab.com/dadard/Design4Green](https://gitlab.com/dadard/Design4Green)
 
 ## Installation
 
