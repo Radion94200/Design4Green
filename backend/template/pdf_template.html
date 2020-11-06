@@ -1,0 +1,159 @@
+<head>
+<style>
+    @page {
+        size: a4 portrait;
+        @frame header_frame {           /* Static Frame */
+            -pdf-frame-content: header_content;
+            left: 50pt; width: 512pt; top: 50pt; height: 40pt;
+        }
+        @frame content_frame {          /* Content Frame */
+            left: 50pt; width: 512pt; top: 90pt; height: 632pt;
+        }
+        @frame footer_frame {           /* Another static Frame */
+            -pdf-frame-content: footer_content;
+            left: 50pt; width: 512pt; top: 772pt; height: 20pt;
+        }
+    }
+</style>
+</head>
+
+<body>
+    <!-- Content for Static Frame 'header_frame' -->
+    <div id="header_content"> 
+	    <center><h1>Calcul de l'Indicateur National de la fragilité numérique</h1></center>
+    </div>
+
+    <!-- Content for Static Frame 'footer_frame' -->
+    <div id="footer_content"><i>Ce document a été généré dans le cadre du projet Design4Green par l'équipe 49</i></div>
+
+    <!-- HTML Content -->
+    <table>
+
+	    	<tr>
+			<td><b><h2>{{nom}}<h2></b></td>
+    		</tr>
+		<tr>
+			<td><b><h3>{{region}}<h3></b></td>
+		</tr>
+		<tr>
+			<td><b>{{departement}}</b></td>
+		</tr>
+		<tr>
+		</tr>
+		<tr>
+			<td><b>Score de Fragilité numérique</b>: {{score}}</td>
+			<td><b>Score du département:</b> {{score_departement}}</td>
+		</tr>
+		<tr>
+			<td><b>Score de compétences</b>: {{score_comp}}</td>	
+			<td><b>Score d'accès</b>: {{score_acces}}</td>	
+		</tr>
+    </table>
+
+    <hr>
+    <table>
+	    <center><b><h2>Axes d'améliorations<h2></b></center>
+	    <center><b><i>Note:</b> un résultat en dessous de 100 dans une catégorie est considérée comme suffisant</i></center>
+    <tr>
+    </tr>
+    <tr>
+	    <td><b>Accès à l'information</b></td>
+    </tr>
+    <tr>
+	    <td><b>Score: </b>{{acces_info}}</td>
+    </tr>
+    <tr>
+    </tr>
+    <tr>
+	    <td><b>C'est quoi ?</b></td>
+    </tr>
+    <tr>
+    <td>C'est l'identification des territoires mal couverts par une offre de service d'information ou des populations qui auront des difficultés à comprendre l'information.</td>
+    </tr>
+    <tr>
+    </tr>
+    <tr>
+	    <td><b> Comment améliorer mon score ?</b></td>
+    </tr>
+    <tr>
+	    <td>{{msg_acces_info}}</td>
+    </tr>
+    </table>
+    <hr>
+    <table>
+    <tr>
+	    <td><b>Capacités d'usage des interfaces numériques</b></td>
+    </tr>
+    <tr>
+	    <td><b>Score: </b>{{comp_num}}</td>
+    </tr>
+    <tr>
+    </tr>
+    <tr>
+	    <td><b>C'est quoi ?</b></td>
+    </tr>
+    <tr>
+   	 <td>C'est l'identification des populations parmi lesquelles on observe une fréquence d'illectronisme ou des  difficultés à utiliser internet.</tr>
+    <tr>
+    </tr>
+    <tr>
+	    <td><b> Comment améliorer mon score ?</b></td>
+    </tr>
+    <tr>
+	    <td>{{msg_comp_num}}</td>
+    </tr>
+
+    </table>
+     <hr>
+    <table>
+    <tr>
+	    <td><b>Compétences administratives</b></td>
+    </tr>
+    <tr>
+	    <td><b>Score: </b>{{comp_admin}}</td>
+    </tr>
+    <tr>
+    </tr>
+    <tr>
+	    <td><b>C'est quoi ?</b></td>
+    </tr>
+    <tr>
+   	 <td>C'est l'identification des populations parmi lesquelles s'observent des difficultés à accomplir des procédures administratives.</td>
+    </tr>
+    <tr>
+    </tr>
+    <tr>
+	    <td><b> Comment améliorer mon score ?</b></td>
+    </tr>
+    <tr>
+	    <td>{{msg_comp_admin}}</td>
+    </tr>
+    </table>
+    <hr>
+    <table>
+    <tr>
+	    <td><b>Acces aux interfaces numériques</b></td>
+    </tr>
+    <tr>
+	    <td><b>Score: </b>{{acces_num}}</td>
+    </tr>
+    <tr>
+    </tr>
+    <tr>
+	    <td><b>C'est quoi ?</b></td>
+    </tr>
+    <tr>
+	    <td>C'est l'identification des territoires malcouverts par les réseaux ou dans lesquels des populations auront des difficultés financières à y accéder.</td>
+    </tr>
+    <tr>
+    </tr>
+    <tr>
+	    <td><b> Comment améliorer mon score ?</b></td>
+    </tr>
+    <tr>
+	    <td>{{msg_acces_num}}</td>
+    </tr>
+    </table>
+    <hr>
+</body>
+</html>

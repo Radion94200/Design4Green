@@ -19,6 +19,7 @@ from rest_framework.urlpatterns import format_suffix_patterns
 
 from api.views import RegionViewSet, CommuneViewSet, QuartierViewSet, \
     DepartementViewSet,GenerateDBView
+from api.pdf import ViewPDF, DownloadPDF
 
 router = routers.DefaultRouter()
 router.register(r'regions', RegionViewSet)
@@ -26,7 +27,9 @@ router.register(r'departements', DepartementViewSet)
 router.register(r'communes', CommuneViewSet)
 router.register(r'quartiers', QuartierViewSet)
 urlpatterns = [
-    url(r'^generate_db/$', GenerateDBView.as_view())
+    url(r'^generate_db/$', GenerateDBView.as_view()),
+    url(r'^pdf_view/$', ViewPDF.as_view(), name="pdf_view"),
+    url(r'^pdf_download/$', DownloadPDF.as_view(), name="pdf_download"),
 ]
 urlpatterns = format_suffix_patterns(urlpatterns)
 urlpatterns += router.urls
