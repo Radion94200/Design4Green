@@ -3,7 +3,7 @@
 
 
 
-Voici le repository officiel de la Team `Green Society` (équipe 49).  
+Voici le repository officiel de la Team 49.  
 Le but de ce hackathon était de proposer une solution `Green` à un problèmes posé. Cette année le challenge proposait d'apporter une solution à l'INR (Institut Numérique Responsable) afin de pouvoir présenter les résultats de l'indice de fragilité numérique.
 
 ## Repository
