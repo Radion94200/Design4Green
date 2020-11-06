@@ -6,7 +6,14 @@
         <div class="card-body">
             <p>
                 Ce site internet vous permet de récupérer des résultats détaillés sur votre commune au format PDF.<br>
-                Pour cela, veuillez dans un premier temps sélectionner votre ville. Lorsque la ville sera sélectionnée, les boutons seront accessibles.
+                Pour cela, veuillez dans un premier temps sélectionner votre ville. Lorsque la ville sera sélectionnée,
+                les boutons seront accessibles.<br><br>
+
+                Ce document contient la description des différents indicateurs utilisés pour les calculs des scores
+                ainsi que des propositions d'axes d'amélioration.<br><br>
+
+                Nous vous conseillons de télécharger votre rapport ci-dessous.
+
             </p>
             <div v-if="this.commune === ''">
                 <button class="btn btn-warning" disabled>Voir les résultats</button>
@@ -55,5 +62,8 @@ a {
 button {
     margin-left: 10px;
     margin-right: 10px;
+}
+.card {
+    width: 100%
 }
 </style>

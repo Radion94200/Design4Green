@@ -3,6 +3,7 @@
         <div class="row align-items-center">
             <div class="col">
                 <div class="p">
+                    <br><br><br>
                     <div>
                         <a href="https://twitter.com/GreenSociety9" rel="noopener noreferrer" target="_blank">
                             <img class="logo-link" src="../assets/icons8-twitter-48.png" alt="twitter">
@@ -16,6 +17,7 @@
                             <img class="logo-link" src="../assets/icons8-github-48.png" alt="github">
                         </a>
                     </div>
+                    <br>
                     <div>
                         Nous utilisons Gitlab pour l'integration continue de notre solution.<br>
                         La compilation et de le déploiement du projet sont gérés automatiquement par des pipelines dediées.
@@ -24,11 +26,13 @@
             </div>
             <div class="col">
                 <div class="p">
+                    <br><br><br>
                     <div>
                         <a href="http://vps-2ea52359.vps.ovh.net:9000/" rel="noopener noreferrer" target="_blank">
                             <img class="logo-link" src="../assets/Sonarqube-48x200.png" alt="sonarqube">
                         </a>
                     </div>
+                    <br>
                     <div>
                         Nous utilisons SonarQube pour nous assurer que la qualité de notre code est la meilleure possible.<br>
                         Un compte public est disponible avec le login/password suivant: <code>guest/guest</code>

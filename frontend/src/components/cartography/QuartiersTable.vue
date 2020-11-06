@@ -4,7 +4,7 @@
             <h3>Résultats Détaillés - {{this.commune.nom}}</h3>
         </div>
         <div class="card-body">
-            <div class="table-responsive-sm">
+            <div class="table-wrapper-scroll-y my-custom-scrollbar">
                 <table class="table">
                     <caption>Données des quartiers</caption>
                     <thead>
@@ -47,5 +47,17 @@
 <style scoped>
     td {
         text-align: center;
+    }
+    .card {
+        width: 100%
+    }
+    .my-custom-scrollbar {
+        position: relative;
+        height: 200px;
+        overflow: auto;
+    }
+
+    .table-wrapper-scroll-y {
+        display: block;
     }
 </style>
