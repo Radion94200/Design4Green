@@ -90,9 +90,6 @@
         mounted() {
             this.service = new ApiService();
 
-            // DEBUG ONLY fixme
-            this.listRegions();
-            this.listDep();
         },
         computed: {
             regionSearch: function() {

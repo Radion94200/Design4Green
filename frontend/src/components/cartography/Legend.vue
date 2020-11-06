@@ -7,8 +7,8 @@
             <div style="text-align: center"><strong>{{this.desc}}</strong></div>
             <canvas id="canvas"></canvas>
             <strong>Score :</strong> Score de la commune<br>
-            <strong>Score Departement :</strong> Score de la commune par rapport au département<br>
-            <strong>Score Departement :</strong> Score de la commune par rapport à la région<br>
+            <strong>Score Département :</strong> Score de la commune par rapport au département<br>
+            <strong>Score Région :</strong> Score de la commune par rapport à la région<br>
             <strong>Population :</strong> Nombres d'habitants dans la zone<br>
         </div>
     </div>

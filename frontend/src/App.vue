@@ -26,9 +26,6 @@ export default {
 </script>
 
 <style>
-  #app {
-
-  }
 
   #content {
     margin: 10px;

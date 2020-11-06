@@ -4,8 +4,9 @@
             <h3>Résultats Détaillés - {{this.commune.nom}}</h3>
         </div>
         <div class="card-body">
-            <div class="table-responsive-sm">
+            <div class="table-responsivegit -sm">
                 <table class="table">
+                    <caption>Données des quartiers</caption>
                     <thead>
                     <tr>
                         <th scope="col">Code IRIS</th>
