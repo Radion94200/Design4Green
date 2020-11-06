@@ -7,6 +7,7 @@
             <div class="container">
             <p>Veuillez sélectionner votre commune pour afficher les informations sur la carte.</p>
                 <l-map
+                        ref="mapCtrl"
                         :zoom="zoom"
                         :center="center"
                         style="height: 500px; width: 100%"
@@ -16,6 +17,7 @@
                             :attribution="attribution"
                     />
                     <l-geo-json
+                            ref="mapJson"
                             v-if="show"
                             :geojson="geojson"
                             :options="options"
@@ -47,6 +49,7 @@
                 service: null,
                 enableTooltip: true,
                 zoom: 5,
+                colors: null,
                 center: [47, 2],
                 geojson: null,
                 url: 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
@@ -55,9 +58,6 @@
             };
         },
         methods: {
-            goto (commune) {
-              this.geojson = this.service.getGeojson(commune)
-            },
             findQuartier (feature) {
                 for (let el of this.commune["quartiers"]) {
                     if (feature["properties"]["code_iris"] === el["code_iris"]) {
@@ -79,10 +79,21 @@
                         geojson['features'].push(JSON5.parse(q['geojson']))
                     }
                     this.geojson = geojson
+                    const self = this
+                    setTimeout(function () {
+                        self.$refs.mapCtrl.mapObject.fitBounds(self.$refs.mapJson.getBounds())
+                    }, 200)
                 }
             }
         },
         mounted() {
+            let colormap = require('colormap')
+             this.colors = colormap({
+                colormap: 'YIGnBu',
+                nshades: 276,
+                format: 'rgbaString',
+                alpha: [0.7, 0.9]
+            })
             this.service = new ApiService();
             setTimeout(function() { window.dispatchEvent(new Event('resize')) }, 250);
         },
@@ -94,17 +105,12 @@
             },
             styleFunction() {
                 return (feature) => {
-                    const score = this.findQuartier(feature);
-                    let fillColor = "";
-                    if (score < 100)
-                        fillColor = "#d2d2d2";
-                    else
-                        fillColor = "#d01515"; // todo : add a map
+                    const score = this.findQuartier(feature).score;
                     return {
                         weight: 2,
-                        color: "#131111",
+                        color: "rgba(29,28,28,0.74)",
                         opacity: 1,
-                        fillColor: fillColor,
+                        fillColor: this.colors[275 - score],
                         fillOpacity: 1
                     };
                 };
@@ -115,10 +121,16 @@
                 }
                 return (feature, layer) => {
                     layer.bindTooltip(
-                        "<div>code:" +
-                        feature.properties.code +
-                        "</div><div>nom: " +
-                        feature.properties.nom +
+                        "<div><b>Code Iris: </b>" +
+                        feature.properties.code_iris +
+                        "</div><div><b>Nom: </b>" +
+                        feature.properties.nom_iris +
+                        "</div><div><b>Score: </b>" +
+                        this.findQuartier(feature).score +
+                        "</div><div><b>Score Departement: </b>" +
+                        this.findQuartier(feature).score_global_dep +
+                        "</div><div><b>Score Region: </b>" +
+                        this.findQuartier(feature).score_global_region +
                         "</div>",
                         { permanent: false, sticky: true }
                     );

@@ -1,6 +1,6 @@
 <template>
     <nav class="navbar sticky-top navbar-expand-lg navbar-light bg-light">
-        <a class="navbar-brand" @click="sendExtend('app-home')">
+        <a class="navbar-brand">
             <img id="navbar-logo" src="../assets/tree_standalone.png" alt="logo">
         </a>
         <h3>INDICE NATIONAL DE FRAGILITÉ NUMÉRIQUE</h3>

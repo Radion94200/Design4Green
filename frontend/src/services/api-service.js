@@ -37,7 +37,6 @@ export default class ApiService {
                     });
             }
         })().then(function() {
-            console.log('done');
             return l
         });
     }

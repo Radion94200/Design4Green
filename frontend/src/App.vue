@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <Navbar @onExtend="extend"></Navbar>
+    <Navbar></Navbar>
     <br>
     <div id="content">
         <Cartographie></Cartographie>
